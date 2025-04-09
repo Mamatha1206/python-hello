@@ -8,15 +8,15 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git (url: 'https://github.com/Mamatha1206/python-hello.git',branch:'main')
+                git (url : 'https://github.com/Mamatha1206/python-hello.git', branch:'main')
             }
         }
 
         stage('Set Up Python Environment') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                 python3 -m venv ${VENV_DIR}
-                source ${VENV_DIR}/bin/activate
+                . ${VENV_DIR}/bin/activate
                 pip install --upgrade pip
                 pip install -r requirements.txt
                 '''
@@ -25,8 +25,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh '''
-                source ${VENV_DIR}/bin/activate
+                sh '''#!/bin/bash
+                . ${VENV_DIR}/bin/activate
                 pytest
                 '''
             }
@@ -34,7 +34,7 @@ pipeline {
 
         stage('Build Artifacts') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                 mkdir -p build
                 cp hello.py build/
                 '''

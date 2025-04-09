@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git (url : 'https://github.com/Mamatha1206/python-hello.git', branch:'main')
+                git (url :'https://github.com/Mamatha1206/python-hello.git', branch:'main')
             }
         }
 
@@ -28,6 +28,15 @@ pipeline {
                 sh '''#!/bin/bash
                 . ${VENV_DIR}/bin/activate
                 pytest
+                '''
+            }
+        }
+
+        stage('Run Hello World Script') {
+            steps {
+                sh '''#!/bin/bash
+                . ${VENV_DIR}/bin/activate
+                python hello.py
                 '''
             }
         }
